@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://unix.stackexchange.com/questions/14270/get-exit-status-of-process-thats-piped-to-another/73180#7318
+
 ## Global variables
 
 # Input_compiler_name
@@ -646,7 +648,9 @@ function wrapper_main()
 	if [ "$ECHO_TO_LOG_FILE_AND_STDOUT" == "NO" ]; then
 	    eval "$cmd" >> $DEBUG_LOG_FILE 2>&1 || status=1
 	else
-	    eval "$cmd" 2>&1 || status=1 | tee -a $DEBUG_LOG_FILE
+	    set -o pipefail
+            #eval "$cmd" 2>&1 || status=1 | tee -a $DEBUG_LOG_FILE
+            eval "$cmd" 2>&1 | tee -a $DEBUG_LOG_FILE || status=1
 	fi
     else
 	eval "$cmd" 2>&1 || status=1
