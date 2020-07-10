@@ -62,6 +62,7 @@ function printf_color()
 
 function _error()
 {
+    echo
     local arg=
     for arg in "$@"; do
 	printf_color "red1" "$arg"

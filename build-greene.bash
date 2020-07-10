@@ -96,7 +96,7 @@ function main()
     fi
     if [ "$prefix" == "" ]; then die "no prefix defined"; fi
 
-    #export N_MAKE_THREADS=60
+    export N_MAKE_THREADS=60
     #export DEFAULT_COMPILER="GNU"
     
     local args="$@"
@@ -121,7 +121,7 @@ function main()
 		;;
 	    
 	    cmake)
-		module load cmake/intel/3.7.1
+		module load cmake/gcc/3.17.3
 		export PATH=.:$INTEL_WRAPPER_PATH:$PATH
 		
 		export CMAKE_INCLUDE_PATH=$(env | grep _INC= | cut -d= -f2 | xargs | sed -e 's/ /:/g')
